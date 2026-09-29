@@ -11,6 +11,7 @@ export default async function ItemsPage() {
 return (
   <main>
     <h1>在庫一覧</h1>
+    <Link href="/items/new">在庫を登録</Link>
 
     {items.length === 0 ? (
       <p>在庫が登録されていません。</p>
