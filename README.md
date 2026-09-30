@@ -1,36 +1,154 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# おうち在庫管理
 
-## Getting Started
+家庭内の日用品や食品などの在庫と、買い物リストを管理するためのWebアプリケーションです。
 
-First, run the development server:
+在庫数を管理し、最低在庫数を下回っているものを確認できるほか、
+買い物リストで購入完了にした商品を在庫へ反映できます。
+
+## 開発目的
+
+要件定義から設計・実装まで、Webアプリケーション開発の一連の工程を主体的に経験することを目的として個人開発しました。
+
+実装から始めるのではなく、最初に要件や必要な機能を整理し、
+画面設計・画面遷移・データベース設計を行ったうえで実装を進めています。
+
+また、Git / GitHubを使用し、featureブランチでの開発、Pull Request、マージといった開発フローも実践しています。
+
+## 主な機能
+
+### 在庫管理
+
+- 在庫の一覧表示
+- 在庫の新規登録
+- 在庫の詳細表示
+- 在庫情報の編集
+- 最低在庫数の設定
+- 最低在庫数以下になった商品の「在庫不足」表示
+- 期限日の設定
+- カテゴリによる在庫の分類
+
+### 買い物リスト
+
+- 買うものの登録
+- 購入数量の設定
+- 在庫との任意の紐付け
+- 購入完了の管理
+- 在庫と紐付いた商品の購入完了時に在庫数を自動加算
+- 購入済み商品の削除
+
+### カテゴリ管理
+
+- カテゴリの一覧表示
+- カテゴリの新規登録
+- カテゴリ名・アイコンの編集
+- カテゴリの削除
+- カテゴリ削除時、紐付いている在庫を「未分類」に変更
+
+## 使用技術
+
+| 分類 | 技術 |
+| --- | --- |
+| フロントエンド | Next.js / React / TypeScript |
+| UI | Tailwind CSS |
+| ORM | Prisma |
+| データベース | SQLite（開発環境） |
+| バージョン管理 | Git / GitHub |
+
+## 画面
+
+以下の画面を実装しています。
+
+- ダッシュボード
+- 在庫一覧
+- 在庫登録
+- 在庫詳細・編集
+- 買い物リスト
+- カテゴリ一覧
+- カテゴリ登録
+- カテゴリ編集・削除
+
+スマートフォンでの利用を想定したレイアウトで作成しています。
+
+## 設計資料
+
+実装前に要件・機能・画面・データベースについて整理しています。
+
+設計資料は [`docs`](./docs) ディレクトリに格納しています。
+
+- [`requirements.md`](./docs/requirements.md) - 要件定義
+- [`functions.md`](./docs/functions.md) - 機能一覧
+- [`screens.md`](./docs/screens.md) - 画面設計
+- [`database.md`](./docs/database.md) - データベース設計
+- [`screen-flow.png`](./docs/screen-flow.png) - 画面遷移図
+- [`mockups`](./docs/mockups) - 各画面のモックアップ
+
+実装中に仕様を再検討した場合は、設計資料も更新しながら開発を進めています。
+
+## ローカルでの実行方法
+
+### 前提
+
+Node.js / npm がインストールされている環境を想定しています。
+
+### 1. リポジトリを取得
+
+```bash
+git clone https://github.com/Yui-F54/home-inventory-app.git
+cd home-inventory-app
+```
+
+
+### 2. 依存パッケージをインストール
+
+```bash
+npm install
+```
+
+### 3. 環境変数を設定
+
+プロジェクト直下に `.env` ファイルを作成し、以下を設定します。
+
+```env
+DATABASE_URL="file:./dev.db"
+```
+
+`.env` はGitの管理対象外とし、秘密情報をリポジトリにコミットしないようにします。
+
+### 4. Prisma Clientを生成
+
+```bash
+npx prisma generate
+```
+
+### 5. データベースを準備
+
+```bash
+npx prisma migrate dev
+```
+
+これにより、ローカル開発用のSQLiteデータベースが準備されます。
+
+### 6. 開発サーバーを起動
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ブラウザで以下を開きます。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 現在の状態
 
-## Learn More
+主要機能の実装が完了し、ローカル環境で一連の操作ができる状態です。
 
-To learn more about Next.js, take a look at the following resources:
+現在は開発環境としてSQLiteを使用しています。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 今後の予定
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- 本番環境用データベースへの移行
+- Vercel等を利用した外部公開
+- UI・操作性の改善
+- 開発を通して得られた知見・課題の整理
