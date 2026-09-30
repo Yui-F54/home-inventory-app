@@ -97,28 +97,33 @@ export default async function ItemDetailPage({
     redirect(`/items/${itemId}`);
   }
 
-  return (
-    <main>
-      <ItemDetail
-        item={{
-          id: item.id,
-          name: item.name,
-          quantity: item.quantity,
-          unit: item.unit,
-          minimumStock: item.minimumStock,
-          expirationDate: item.expirationDate
-            ? item.expirationDate.toISOString().slice(0, 10)
-            : null,
-          categoryId: item.categoryId,
-          categoryName: item.category?.name ?? "未分類",
-        }}
-        categories={categories}
-        updateItem={updateItem}
-      />
+ return (
+  <main className="mx-auto w-full max-w-md px-5 py-6">
+    <ItemDetail
+      item={{
+        id: item.id,
+        name: item.name,
+        quantity: item.quantity,
+        unit: item.unit,
+        minimumStock: item.minimumStock,
+        expirationDate: item.expirationDate
+          ? item.expirationDate.toISOString().slice(0, 10)
+          : null,
+        categoryId: item.categoryId,
+        categoryName: item.category?.name ?? "未分類",
+      }}
+      categories={categories}
+      updateItem={updateItem}
+    />
 
-      <p>
-        <Link href="/items">在庫一覧に戻る</Link>
-      </p>
-    </main>
-  );
+    <p className="mt-5">
+      <Link
+        href="/items"
+        className="text-sm font-medium text-sky-600"
+      >
+        ‹ 在庫一覧に戻る
+      </Link>
+    </p>
+  </main>
+);
 }
